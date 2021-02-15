@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Dashboard"
+            android:icon="@drawable/ic_baseline_dashboard_24"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile Update"
+            android:icon="@drawable/ic_settings"/>
+       <item
+        android:id="@+id/nav_profile_view"
+        android:title="View Profile"
+        android:icon="@drawable/ic_baseline_account_box_24"/>
+        <item
+            android:id="@+id/nav_add_order"
+            android:title="Add Order"
+            android:icon="@drawable/ic_baseline_add_box_24"/>
+       <item
+        android:id="@+id/nav_productsstatus"
+        android:title="Delivery Status"
+        android:icon="@drawable/ic_baseline_speaker_notes_24"/>
+
+    <item
+        android:id="@+id/nav_website"
+        android:title="Visit Website"
+        android:icon="@drawable/ic_baseline_web_24"/>
+    <item
+        android:id="@+id/nav_page"
+        android:title="Visit Our Page"
+        android:icon="@drawable/ic_baseline_pages_24"/>
+
+    <item
+        android:id="@+id/nav_about"
+        android:title="About"
+        android:icon="@drawable/ic_baseline_pages_24"/>
+
+
+
+</menu>

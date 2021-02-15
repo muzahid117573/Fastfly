@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarorder"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/amber_A400"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <TextView
+            android:textColor="@color/background6"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_marginBottom="2dp"
+            android:id="@+id/deliveryaddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Delivery Address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/deliveryaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_marginBottom="2dp"
+            android:id="@+id/customerphone1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Customer Phone Number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="phone"
+                android:id="@+id/customerphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginBottom="2dp"
+            android:id="@+id/collectedmoney1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount to be collected"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/collectedmoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                app:ms_background_color="@color/background3"
+                android:layout_margin="5dp"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+<LinearLayout
+    android:weightSum="2"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:text="Delivery Charge ="
+        android:textColor="@color/background6"
+        android:textSize="20sp"
+        android:textAlignment="viewEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+    <TextView
+
+        android:layout_weight="1"
+        android:id="@+id/calcharge"
+        android:textColor="@color/background6"
+        android:textAlignment="viewStart"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+</LinearLayout>
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_margin="20dp"
+            android:id="@+id/placeorder"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/background6"
+            android:backgroundTint="@color/amber_A400"
+            android:layout_gravity="center"
+            android:text="Order Now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.button.MaterialButton>
+
+    </LinearLayout>
+
+
+</LinearLayout>

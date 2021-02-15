@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".OTPVerification">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_verified"
+            app:tint="@color/background6" />
+
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:text="CODE"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:text="Verification"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+
+
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:background="@drawable/edittext_curve_bg"
+                android:id="@+id/otpedit"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            </EditText>
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_margin="2dp"
+                    android:src="@drawable/ic_baseline_access_alarms_24"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp">
+
+                </ImageView>
+                <TextView
+                    android:gravity="end"
+                    android:id="@+id/countdown"
+                    android:text="Count-Down"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/background6"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/verifyotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/blue_A700"
+            android:text="Verify OTP"
+            android:textColor="@color/white"
+            android:transitionName="transition_OTP_screen" />
+
+        <Button
+            android:visibility="invisible"
+            android:id="@+id/resendotp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/background6"
+            android:text="Resend OTP"
+            android:textColor="@color/white"
+            android:transitionName="transition_OTP_screen" />
+
+
+    </LinearLayout>
+
+</ScrollView>

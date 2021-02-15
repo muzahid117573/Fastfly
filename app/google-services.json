@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "285304314736",
+    "project_id": "fastcourier-e193b",
+    "storage_bucket": "fastcourier-e193b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285304314736:android:0b93cd398e07a539050db5",
+        "android_client_info": {
+          "package_name": "com.xplore24.courier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285304314736-6635o7cojjb5ibnm3islqhbvj8lscrjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xplore24.courier",
+            "certificate_hash": "c4f4f98c005e101b545ae920f59117e5bb5d4d3b"
+          }
+        },
+        {
+          "client_id": "285304314736-8lsb0qba90a2vf32ok63kd85hue37ncj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnQAt1JT2eBwuXkKyS9KWphAJ9hm-yRoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285304314736-8lsb0qba90a2vf32ok63kd85hue37ncj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
