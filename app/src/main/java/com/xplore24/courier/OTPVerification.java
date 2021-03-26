@@ -35,10 +35,12 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.xplore24.courier.Model.User;
+import com.xplore24.courier.Utils.LoaderDialog;
 import com.xplore24.courier.Utils.LoadingDialog;
 
 import com.xplore24.courier.Utils.SharedPrefManager;
 import com.xplore24.courier.Utils.Urls;
+import com.xplore24.courier.Utils.Utils;
 import com.xplore24.courier.Utils.VolleySingleton;
 
 import org.json.JSONException;
@@ -57,21 +59,25 @@ public class OTPVerification extends AppCompatActivity {
     private EditText editTextCode;
     private TextView countdown;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private LoaderDialog loaderDialog;
 
     //firebase auth object
     private FirebaseAuth mAuth;
     private Button resendbutton;
-    private LoadingDialog loadingDialog;
+  //  private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_t_p_verification);
-        loadingDialog=new LoadingDialog(OTPVerification.this);
+
+        // loadingDialog=new LoadingDialog(OTPVerification.this);
 
         Intent intent = getIntent();
         mobile = intent.getStringExtra("Phone");
         pass = intent.getStringExtra("Pass");
+        loaderDialog=new LoaderDialog(this);
+        loaderDialog.create();
 
 
         countdown=findViewById(R.id.countdown);
@@ -108,7 +114,8 @@ public class OTPVerification extends AppCompatActivity {
                 code = editTextCode.getText().toString().trim();
                 if (code.length() == 6 && isNetworkConnected()) {
                     verifyVerificationCode(code);
-                    loadingDialog.startLoadingdialog();
+                    //loadingDialog.startLoadingdialog();
+                    loaderDialog.show();
 
 
                 }else {
@@ -175,16 +182,17 @@ public class OTPVerification extends AppCompatActivity {
                 editTextCode.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
-                loadingDialog.startLoadingdialog();
+               // loadingDialog.startLoadingdialog();
+                loaderDialog.show();
             }
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            if (loadingDialog.loading()) {
-                loadingDialog.dialogDismiss();
+
+                loaderDialog.cancel();
                 Toasty.error(OTPVerification.this, e.getMessage(), Toast.LENGTH_SHORT, true).show();
-            }
+
         }
 
         @Override
@@ -214,7 +222,7 @@ public class OTPVerification extends AppCompatActivity {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
 
 
-                                loadingDialog.dialogDismiss();
+                                loaderDialog.cancel();
                                 Toasty.error(OTPVerification.this,"Phone Number Already Exist", Toast.LENGTH_LONG, true).show();
 
 
@@ -224,7 +232,7 @@ public class OTPVerification extends AppCompatActivity {
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
 
                                 Toasty.error(OTPVerification.this,"Invalid code entered", Toast.LENGTH_LONG, true).show();
-                                loadingDialog.dialogDismiss();
+                                loaderDialog.cancel();
 
 
 
@@ -247,10 +255,10 @@ public class OTPVerification extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
-                            if(obj.getString("successMessage").equals("Registration success. Please signin.")){
-                                Toasty.success(getApplicationContext(), "Registration success. Please Login!", Toast.LENGTH_SHORT, true).show();
+                            if(obj.getString("successMessage").equals("Registration success.")){
+                                Toasty.success(getApplicationContext(), "Registration success", Toast.LENGTH_SHORT, true).show();
 
-                                    loadingDialog.dialogDismiss();
+                                loaderDialog.cancel();
 
                                 new Handler().postDelayed(new Runnable() {
 
@@ -260,23 +268,30 @@ public class OTPVerification extends AppCompatActivity {
                                     public void run() {
 
 
-                                        Intent intent = new Intent(OTPVerification.this, Login.class);
+                                        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
                                         finish();
 
 
                                     }
 
-                                }, 1000);
+                                }, 600);
 
 
+
+                                User user = new User(
+                                        obj.getString("token"),
+                                        obj.getString("phone")
+
+                                        );
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
 
 
                             }else {
                                 Toasty.error(getApplicationContext(), obj.getString("errorMessage"), Toast.LENGTH_LONG, true).show();
 
-                                    loadingDialog.dialogDismiss();
+                                    loaderDialog.cancel();
 
                             }
 
@@ -288,7 +303,7 @@ public class OTPVerification extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
 
-                                loadingDialog.dialogDismiss();
+                                loaderDialog.cancel();
 
                         }
 
@@ -300,7 +315,7 @@ public class OTPVerification extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        loadingDialog.dialogDismiss();
+                        loaderDialog.cancel();
 
                         Toasty.error(OTPVerification.this,"Phone Number Already Exist", Toast.LENGTH_SHORT, true).show();
 

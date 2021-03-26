@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
+        app:showAsAction="ifRoom"
+        android:id="@+id/nav_refresh"
+        android:title="Refresh"
+        android:icon="@drawable/ic_baseline_refresh_24"/>
+
+
+
+    <item
+        app:showAsAction="always"
         android:id="@+id/nav_home"
         android:title="Dashboard"
-        android:icon="@drawable/ic_baseline_dashboard_24"/>
-    <item
-        android:id="@+id/nav_profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_baseline_account_box_24"/>
-    <item
-        android:id="@+id/nav_add_order"
-        android:title="Add Order"
-        android:icon="@drawable/ic_baseline_add_box_24"/>
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+
 </menu>

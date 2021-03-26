@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-import com.wang.avi.AVLoadingIndicatorView;
 import com.xplore24.courier.R;
 
  public class LoadingDialog {
      Activity activity;
-    private AVLoadingIndicatorView avLoadingIndicatorView;
     AlertDialog dialog;
 
     public LoadingDialog(Activity activity) {

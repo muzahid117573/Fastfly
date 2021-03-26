@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="400dp"
         android:scaleType="centerCrop"
-        app:lottie_rawRes="@raw/couriersplash"
+        app:lottie_rawRes="@raw/deliveryman"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 

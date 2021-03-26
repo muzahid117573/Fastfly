@@ -14,4 +14,22 @@
     <style name="navigationbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
     </style>
 
+    <style name="Widget.App.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomAppBar</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomAppBar" parent="">
+        <item name="colorPrimary">@color/background3</item>
+        <item name="colorOnPrimary">@color/blue_grey_900</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorSecondary">@color/background3</item>
+        <item name="colorOnSecondary">@color/blue_grey_900</item>
+    </style>
+
 </resources>

@@ -22,13 +22,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.xplore24.courier.Model.ProfileModel;
 import com.xplore24.courier.Model.User;
 import com.xplore24.courier.Utils.LoaderDialog;
 import com.xplore24.courier.Utils.LoadingDialog;
 import com.xplore24.courier.Utils.SharedPrefManager;
 import com.xplore24.courier.Utils.Urls;
+import com.xplore24.courier.Utils.Utils;
 import com.xplore24.courier.Utils.VolleySingleton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +42,7 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 
 public class Login extends AppCompatActivity {
-    Button callSignUp, login_btn;
+    Button callSignUp, login_btn,forgetbtn;
     ImageView image;
     TextView logoText, sloganText;
     TextInputLayout phonenumber1, password1;
@@ -67,6 +70,13 @@ public class Login extends AppCompatActivity {
         phonenumber1 = findViewById(R.id.phonenumber1);
         password1 = findViewById(R.id.password1);
         login_btn = findViewById(R.id.login_btn);
+        forgetbtn = findViewById(R.id.forgetbutton);
+        forgetbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ForgetPhone.class));
+            }
+        });
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +143,7 @@ public class Login extends AppCompatActivity {
                                 JSONObject obj = new JSONObject(response);
 
 
-                                if(obj.getString("successMessage").equals("User is varified")){
+                                if(obj.getString("successMessage").equals("user is varified")){
                                     Toasty.success(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT, true).show();
 
                                      loaderDialog.cancel();
@@ -158,7 +168,8 @@ public class Login extends AppCompatActivity {
 
 
                                     User user = new User(
-                                            obj.getString("token")
+                                            obj.getString("token"),
+                                            phonenum
                                     );
                                     SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
@@ -186,7 +197,7 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             loaderDialog.cancel();
-                            Toasty.error(getApplicationContext(), "Invalid User.", Toast.LENGTH_SHORT, true).show();
+                         //   Toasty.error(getApplicationContext(), "Invalid User.", Toast.LENGTH_SHORT, true).show();
 
                             NetworkResponse response = error.networkResponse;
                             if (error instanceof ServerError && response != null) {
@@ -195,6 +206,8 @@ public class Login extends AppCompatActivity {
                                             HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                                     // Now you can use any deserializer to make sense of data
                                     JSONObject obj = new JSONObject(res);
+                                    Toasty.error(getApplicationContext(), obj.getString("errorMessage"), Toast.LENGTH_SHORT, true).show();
+
                                 } catch (UnsupportedEncodingException e1) {
                                     // Couldn't properly decode data to string
                                     e1.printStackTrace();

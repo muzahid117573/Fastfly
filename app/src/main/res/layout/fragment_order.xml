@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    tools:context=".OrderFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarorder"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/pink_50"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+                <TextView
+                    android:textColor="@color/background6"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Order"
+                    android:layout_gravity="center"
+                    android:id="@+id/toolbar_title" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Merchant Details"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/blue_400"
+                    />
+
+
+
+                <CheckBox
+                    android:id="@+id/checkboxpickup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Same As Profile Data"/>
+
+
+                <LinearLayout
+                    android:id="@+id/linearcheckbox"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Pickup Address"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/background6"
+                        />
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/picupaddress1"
+                        android:layout_marginTop="@dimen/spacing_middle"
+                        android:background="@color/grey_3"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pickupaddress"
+                            android:background="@drawable/edit_text_round_bg_outline"
+                            android:gravity="start"
+                            android:hint="@string/write_details_address_with_road_house_number"
+                            android:inputType="textMultiLine"
+                            android:lines="3"
+                            android:textColor="@color/background6"
+                            android:textColorHint="@color/blue_grey_500" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Merchant Phone Number"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/background6"
+                        />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/merphone1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/grey_3"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="phone"
+                            android:id="@+id/merphone"
+                            android:background="@drawable/edit_text_round_bg_outline"
+                            android:hint="Merchant Phone Number"
+                            android:textColor="@color/background6"
+                            android:textColorHint="@color/blue_grey_500" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Customer Details"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/blue_400"
+                    />
+                <TextView
+                    android:textSize="15sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Customer Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/background6"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customername1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grey_3"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/customername"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:hint="Customer Name"
+                        android:textColor="@color/background6"
+                        android:textColorHint="@color/blue_grey_500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:textSize="15sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Customer Phone Number"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/background6"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/customerphone1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/grey_3"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:id="@+id/customerphone"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:hint="Customer Phone Number"
+                        android:textColor="@color/background6"
+                        android:textColorHint="@color/blue_grey_500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+                <TextView
+                    android:textSize="17sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Delivery Address"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/background6"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/deliveryaddress1"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    android:background="@color/grey_3"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/deliveryaddress"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:gravity="start"
+                        android:hint="@string/write_details_address_with_road_house_number"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:textColor="@color/background6"
+                        android:textColorHint="@color/blue_grey_500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/customerref1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/grey_3"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:id="@+id/customerref"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:hint="Reference No (Like 1,2,3...)"
+                        android:textColor="@color/background6"
+                        android:textColorHint="@color/blue_grey_500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:textSize="16sp"
+                            app:ms_background_color="@color/grey_3"
+                            android:id="@+id/spinnerweight"
+                            app:ms_hint_color="@color/background6"
+                            app:ms_text_color="@color/background6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:textSize="16sp"
+                            app:ms_background_color="@color/grey_3"
+                            android:id="@+id/spinnerarea"
+                            app:ms_hint_color="@color/background6"
+                            app:ms_text_color="@color/background6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+
+
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:textSize="16sp"
+                            app:ms_background_color="@color/grey_3"
+                            android:id="@+id/spinnercondition"
+                            app:ms_hint_color="@color/background6"
+                            app:ms_text_color="@color/background6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/collectedmoney1"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    android:background="@color/grey_3"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/collectedmoney"
+                        android:background="@drawable/edit_text_round_bg_outline"
+                        android:hint="Collection Money"
+                        android:textAlignment="center"
+                        android:textColor="@color/background6"
+                        android:textColorHint="@color/blue_grey_500" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:text="Delivery Charge ="
+                        android:textColor="@color/background6"
+                        android:textSize="20sp"
+                        android:textAlignment="viewEnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+
+                        android:layout_weight="1"
+                        android:id="@+id/calcharge"
+                        android:textColor="@color/background6"
+                        android:textAlignment="viewStart"
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+                </LinearLayout>
+
+
+
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_margin="20dp"
+                    android:id="@+id/placeorder"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/background6"
+                    android:backgroundTint="@color/pink_50"
+                    android:layout_gravity="center"
+                    android:text="Order Now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </com.google.android.material.button.MaterialButton>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</FrameLayout>

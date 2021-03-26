@@ -7,5 +7,6 @@
     <string name="clear_sorting">Clear</string>
     <string name="row_show">Show 5. Row</string>
     <string name="row_hide">Hide 5. Row</string>
+    <string name="write_details_address_with_road_house_number"><![CDATA[Write Details Address With Road & House Number]]></string>
 
 </resources>

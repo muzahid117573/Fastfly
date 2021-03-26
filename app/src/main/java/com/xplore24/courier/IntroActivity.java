@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.xplore24.courier.Adapter.IntroViewPagerAdapter;
 import com.xplore24.courier.Model.ScreenItem;
+import com.xplore24.courier.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,31 +38,10 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // make the activity on full screen
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_intro);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-        // when this activity is about to be launch we need to check if its openened before or not
-
-        if (restorePrefData()) {
-
-            Intent mainActivity = new Intent(getApplicationContext(),SplashScreen.class );
-            startActivity(mainActivity);
-            finish();
-
-
-        }
-
-        setContentView(R.layout.activity_intro);
-
-        // hide the action bar
-
-
-        // ini views
+      
         btnNext = findViewById(R.id.btn_next);
         btnGetStarted = findViewById(R.id.btn_get_started);
         tabIndicator = findViewById(R.id.tab_indicator);
@@ -71,9 +51,9 @@ public class IntroActivity extends AppCompatActivity {
         // fill list screen
 
         final List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem("Pickup From Home","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.imagepickup));
-        mList.add(new ScreenItem("Stored Safely","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.imagehub));
-        mList.add(new ScreenItem("Fast Delivery","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",R.drawable.imagedelivered));
+        mList.add(new ScreenItem("Pickup From Home","Picked Your Products From Your Home",R.drawable.pickup));
+        mList.add(new ScreenItem("Stored Safely","Packed & Stored Safely In Our Hub",R.drawable.hub));
+        mList.add(new ScreenItem("Fast Delivery","Delivered Your Products To Your Desired Place",R.drawable.delivered));
 
         // setup viewpager
         screenPager =findViewById(R.id.screen_viewpager);
@@ -101,7 +81,6 @@ public class IntroActivity extends AppCompatActivity {
 
                 if (position == mList.size()-1) { // when we rech to the last screen
 
-                    // TODO : show the GETSTARTED Button and hide the indicator and the next button
 
                     loaddLastScreen();
 
@@ -188,6 +167,23 @@ public class IntroActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+
+
+        if (restorePrefData()) {
+
+            Intent mainActivity = new Intent(getApplicationContext(),SplashScreen.class );
+            startActivity(mainActivity);
+            finish();
+
+
+        }
+
+
+        super.onStart();
+    }
+
     private void savePrefsData() {
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
@@ -205,7 +201,6 @@ public class IntroActivity extends AppCompatActivity {
         btnGetStarted.setVisibility(View.VISIBLE);
         tvSkip.setVisibility(View.INVISIBLE);
         tabIndicator.setVisibility(View.INVISIBLE);
-        // TODO : ADD an animation the getstarted button
         // setup animation
         btnGetStarted.setAnimation(btnAnim);
 

@@ -25,8 +25,8 @@ public class LoaderDialog extends AlertDialog {
     public LoaderDialog(Context context) {
         super(context);
 
-        setCancelable(false);
-        setCanceledOnTouchOutside(false);
+        setCancelable(true);
+        setCanceledOnTouchOutside(true);
 
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_loader, null);

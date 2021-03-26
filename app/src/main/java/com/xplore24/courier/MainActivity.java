@@ -1,275 +1,155 @@
 package com.xplore24.courier;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
+import android.content.IntentSender;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
 import android.net.Uri;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.button.MaterialButton;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.wang.avi.AVLoadingIndicatorView;
-import com.xplore24.courier.Adapter.ViewOrderAdapter;
-import com.xplore24.courier.Model.ViewOrderModel;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 import com.xplore24.courier.Utils.SharedPrefManager;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
+import com.xplore24.courier.Utils.Utils;
 
 import es.dmoral.toasty.Toasty;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    MaterialButton placeorder;
+
     static final float END_SCALE = 0.7f;
     private Toast backToast;
     private long backpressedTime;
-    ImageView logoutbutton;
-    private Button trackbutton;
-    private EditText trackEdittext;
-    private TextView trackingtext;
-    AVLoadingIndicatorView avLoadingIndicatorView;
+    private Fragment fragment=null;
 
-    ImageView menuIcon;
+    private BottomAppBar chipNavigationBar;
+
     LinearLayout contentView;
-    TextView searchView;
-    private String track;
+    ImageView menuIcon;
+    private int REQ_CODE=6;
+
 
     //Drawer Menu
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        avLoadingIndicatorView=findViewById(R.id.avi);
-        avLoadingIndicatorView.hide();
-        trackbutton=findViewById(R.id.trackbutton);
-        trackEdittext=findViewById(R.id.trackorderhome);
-        trackingtext=findViewById(R.id.serachText);
-        trackbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-           public void onClick(View v) {
 
-                    if(trackEdittext.getText().toString().length()==0) {
-                        Toasty.error(getApplicationContext(), "Please Insert Order ID", Toast.LENGTH_SHORT, true).show();
-
-                    }else {
-                        track=trackEdittext.getText().toString().trim();
-                        startAnim();
-
-                        tracking();
-                    }
-
-                    }
-                     }
-        );
-
-
-
-        logoutbutton=findViewById(R.id.logoutbutton);
-        logoutbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-           SharedPrefManager.getInstance(getApplicationContext()).logout();
-           Intent intent =new Intent(MainActivity.this,Login.class);
-           startActivity(intent);
-           finish();
-            }
-        });
-
-        placeorder=findViewById(R.id.placeorder);
-        placeorder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,OrderActivity.class));
-                finish();
-            }
-        });
-        //Hooks
-        menuIcon = findViewById(R.id.menu_icon);
+        navigationView = findViewById(R.id.navigation_view);
+        navigationView.setCheckedItem(R.id.nav_home);
+        drawerLayout = findViewById(R.id.drawer_layout);
         contentView = findViewById(R.id.content);
 
-        //Menu Hooks
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation_view);
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
-        naviagtionDrawer();
 
-
-
-
-
-    }
-
-    private void tracking() {
-
-        String url="https://fastfly.com.bd/api/auth/id/";
-        HashMap<String, String> body = new HashMap<>();
-        body.put("id", track);
-
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(body),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-
-
-
-
-
-                            try {
-                                stopAnim();
-                                trackEdittext.setText("");
-                                JSONObject userJson = response.getJSONObject("order");
-
-
-
-                                    Toasty.success(getApplicationContext(), "Stay with us", Toast.LENGTH_SHORT, true).show();
-
-
-                                    String status = userJson.getString("status");
-                                    trackingtext.setText(status);
-
-
-
-
-                            } catch (JSONException e) {
-                                stopAnim();
-
-                                e.printStackTrace();
-                            }
-
-
-
-
-
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toasty.error(getApplicationContext(), "Please Try Again Later", Toast.LENGTH_SHORT, true).show();
-
-
-                stopAnim();
-                error.printStackTrace();
-
-                NetworkResponse response = error.networkResponse;
-                if (error instanceof ServerError && response != null) {
-                    try {
-                        String res = new String(response.data,
-                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                        // Now you can use any deserializer to make sense of data
-                        JSONObject obj = new JSONObject(res);
-                    } catch (UnsupportedEncodingException e1) {
-                        // Couldn't properly decode data to string
-                        e1.printStackTrace();
-                    } catch (JSONException e2) {
-                        // returned data is not JSONObject?
-                        e2.printStackTrace();
-                    }
-                }
-
-
-            }
-        }) {
-
-
-
-
-
-            @Override
-            public Map<String, String> getHeaders () throws AuthFailureError {
-                SharedPreferences myPrefs = getSharedPreferences("volleyregisterlogin", MODE_PRIVATE);
-                String token = myPrefs.getString("token", null);
-
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Authorization", token);
-                return headers;
-
-
-
-
-
-
-
-
-            }
-
-
-
-
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(request);
-
-
-
-
-
-    }
-
-
-    //Navigation Drawer Functions
-    private void naviagtionDrawer() {
-
-        //Naviagtion Drawer
-
-        navigationView.setCheckedItem(R.id.nav_home);
-
-        menuIcon.setOnClickListener(new View.OnClickListener() {
+        chipNavigationBar = findViewById(R.id.bottomAppBar);
+        chipNavigationBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (drawerLayout.isDrawerVisible(GravityCompat.START))
                     drawerLayout.closeDrawer(GravityCompat.START);
                 else drawerLayout.openDrawer(GravityCompat.START);
+                animateNavigationDrawer();
+            }
+        });
+        FloatingActionButton fab=findViewById(R.id.floatingbutton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new OrderFragment()).commit();
+
             }
         });
 
-        animateNavigationDrawer();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        chipNavigationBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+                        break;
+                    case R.id.nav_refresh:
+                        Intent i = new Intent(MainActivity.this, MainActivity.class);
+                        finish();
+                        overridePendingTransition(0, 0);
+                        startActivity(i);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                }
+                if (fragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+
+                }
+                return false;
+            }
+        });
+
+
+
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
+
+
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    // For a flexible update, use AppUpdateType.FLEXIBLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.IMMEDIATE,
+                            this,
+                            REQ_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
+
+
+
+
+
+
 
     private void animateNavigationDrawer() {
 
@@ -311,11 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
 
                 return true;
-            case R.id.nav_profile:
-                  startActivity(new Intent(this,ProfileActivity.class));
-                 finish();
 
-                return true;
             case R.id.nav_profile_view:
                   startActivity(new Intent(this,ViewProfile.class));
                  finish();
@@ -343,6 +219,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this,AboutActivity.class));
                 finish();
                 return true;
+            case R.id.nav_exit:
+                if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    logoutDialog();
+
+                    return true;
+
+
+                }
+
 
 
 
@@ -382,25 +268,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+//    @Override
+//    protected void onStart() {
+//
+//
+//        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
+//            finish();
+//            Intent intent=new Intent(this, Login.class);
+//            startActivity(intent);
+//            return;
+//        }
+//
+//        super.onStart();
+//    }
+
+
+
+    private void logoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        builder.setMessage("Do you want to logout?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        SharedPrefManager.getInstance(getApplicationContext()).logout();
+                        Intent intent =new Intent(MainActivity.this,Login.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+
+                        dialog.cancel();
+
+
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle("Logout");
+        alert.show();
+
+
+    }
+
     @Override
-    protected void onStart() {
-        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
-            finish();
-            Intent intent=new Intent(this, Login.class);
-            startActivity(intent);
-            return;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE) {
+            if (resultCode == RESULT_OK) {
+                Toasty.success(this,"Start Updating",Toasty.LENGTH_SHORT,true).show();
+
+
+            }
         }
-        super.onStart();
-    }
-
-    void startAnim(){
-        avLoadingIndicatorView.show();
-        // or avi.smoothToShow();
-    }
-
-    void stopAnim(){
-        avLoadingIndicatorView.hide();
-        // or avi.smoothToHide();
     }
 
 }

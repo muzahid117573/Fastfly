@@ -5,13 +5,10 @@
             android:id="@+id/nav_home"
             android:title="Dashboard"
             android:icon="@drawable/ic_baseline_dashboard_24"/>
-        <item
-            android:id="@+id/nav_profile"
-            android:title="Profile Update"
-            android:icon="@drawable/ic_settings"/>
+
        <item
         android:id="@+id/nav_profile_view"
-        android:title="View Profile"
+        android:title="Profile"
         android:icon="@drawable/ic_baseline_account_box_24"/>
         <item
             android:id="@+id/nav_add_order"
@@ -19,7 +16,7 @@
             android:icon="@drawable/ic_baseline_add_box_24"/>
        <item
         android:id="@+id/nav_productsstatus"
-        android:title="Delivery Status"
+        android:title="Order Details"
         android:icon="@drawable/ic_baseline_speaker_notes_24"/>
 
     <item
@@ -34,7 +31,11 @@
     <item
         android:id="@+id/nav_about"
         android:title="About"
-        android:icon="@drawable/ic_baseline_pages_24"/>
+        android:icon="@drawable/ic_info"/>
+    <item
+        android:id="@+id/nav_exit"
+        android:title="Logout"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"/>
 
 
 

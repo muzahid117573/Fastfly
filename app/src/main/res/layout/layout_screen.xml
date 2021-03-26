@@ -53,13 +53,13 @@
 
     <ImageView
         android:id="@+id/intro_img"
-        android:layout_width="wrap_content"
-        android:layout_height="222dp"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/intro_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

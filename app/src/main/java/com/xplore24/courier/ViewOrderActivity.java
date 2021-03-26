@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.xplore24.courier.Adapter.ViewOrderAdapter;
 import com.xplore24.courier.Model.ViewOrderModel;
 import com.xplore24.courier.Utils.LoaderDialog;
 import com.xplore24.courier.Utils.LoadingDialog;
+import com.xplore24.courier.Utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,12 +51,17 @@ public class ViewOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+
         mQueue = Volley.newRequestQueue(this);
         recyclerView = (RecyclerView) findViewById(R.id.vieworderrecycle);
         recyclerView.setHasFixedSize(true);
 
         toolbar=findViewById(R.id.toolbarorderdetails);
-        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title_details);
 
         layoutManager = new LinearLayoutManager(this);
 
@@ -72,7 +80,7 @@ public class ViewOrderActivity extends AppCompatActivity {
 
     private void sendRequest() {
 
-        String url = "https://fastfly.com.bd/api/auth/getOrder";
+        String url = "https://fastfly.com.bd/api/order/get";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -81,11 +89,20 @@ public class ViewOrderActivity extends AppCompatActivity {
 
                         JSONArray jsonArray = null;
                         try {
-                            jsonArray = response.getJSONArray("orderData");
+                            jsonArray = response.getJSONArray("order");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        for (int i = 0; i < jsonArray.length(); i++) {
+                        if(jsonArray.length()==0){
+                            loaderDialog.cancel();
+                            Toasty.info(getApplicationContext(), "No Order Available", Toast.LENGTH_SHORT, true).show();
+
+
+                        }else {
+
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+
 
                                 ViewOrderModel viewOrderModel = new ViewOrderModel();
                                 try {
@@ -107,6 +124,12 @@ public class ViewOrderActivity extends AppCompatActivity {
 
                                 order.add(viewOrderModel);
                             }
+
+
+
+
+                        }
+
                             mAdapter = new ViewOrderAdapter(ViewOrderActivity.this, order);
                             recyclerView.setAdapter(mAdapter);
 
@@ -129,6 +152,8 @@ public class ViewOrderActivity extends AppCompatActivity {
             public Map<String, String> getHeaders () throws AuthFailureError {
                 SharedPreferences myPrefs = getSharedPreferences("volleyregisterlogin", MODE_PRIVATE);
                 String token = myPrefs.getString("token", null);
+                Log.d("myTag", token);
+
 
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
